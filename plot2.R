@@ -1,0 +1,10 @@
+setwd("/Users/apple/Desktop")
+file <- read.csv("household_power_consumption.txt", header = T, sep = ';', stringsAsFactors = F, na.strings="?", nrows = 2075259)
+data <- subset (file, Date %in% c("1/2/2007", "2/2/2007"))
+install.packages("lubridate")
+library(lubridate)
+datetime <- dmy_hms(paste(data$Date, data$Time))
+data$Datetime <- datetime
+with(data, (plot(Global_active_power ~ Datetime, type="l", ylab="Global Active Power (kilowatts)", xlab="")))
+png("plot2.png", width = 480, height = 480)
+dev.off()     
